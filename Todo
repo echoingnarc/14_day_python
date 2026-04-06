@@ -1,0 +1,90 @@
+print("\nWELCOME TO THE DO LIST MAKER PROGRAM")
+print("---------- Made in Python ----------")
+toDoList = []
+
+while True:
+    print("\nOptions")
+    print("=======")
+    print("1.Add a task to the list")
+    print("2.Remove a task from the list")
+    print("3.Mark a task as done from the list")
+    print("4.Show the list")
+    print("0.Exit the program\n")
+
+    option = int(input("Enter an option(0/1/2/3/4): "))
+
+    if 0 <= option <= 4:
+
+        if option == 1:
+            newTask = input("\nEnter a task to add to the list(Enter 0 to Cancel): ")
+            
+            if newTask == "0":
+                continue
+
+            else:
+                toDoList.append({"task": newTask, "status": "Unchecked"})
+                print("\n > The task was added to the list successfully!")
+
+        elif option == 2:
+
+            while True:
+                try:
+                    if len(toDoList) == 0:
+                        print("\n > The To Do List is currently. There is nothing to remove")
+                    else:
+                        removeTask = int(input("\nEnter the index of the task to remove from the list(Enter 0 to Cancel): "))
+                        
+                        if removeTask == 0:
+                            print("\n > The operation was aborted successfully!")
+                            break
+                        
+                        elif 1 <= removeTask <= len(toDoList):
+                            toDoList.pop(removeTask-1)
+                            print("\n > The task was removed from the list successfully!")
+                            break
+                        
+                        else:
+                            print("\n > Please only enter the index of existed tasks")
+                        
+                except ValueError:
+                    print("\n > Please enter an index(of the task) only")
+
+        elif option == 3:
+
+            while True:
+                try:
+                    if len(toDoList) == 0:
+                        print("\n > The To Do List is currently. There is no task to mark as done")
+                    else:
+                        checkStatus = int(input("\nEnter the index of the task to mark as done(Enter 0 to Cancel): "))
+                        
+                        if checkStatus == 0:
+                            print("\n > The operation was aborted successfully!")
+                            break
+                        
+                        elif 1 <= checkStatus <= len(toDoList):
+                            toDoList[checkStatus-1].update({"status": "Checked"})
+                            print("\n > The task was marked as done successfully!")
+                            break
+                        
+                        else:
+                            print("\n > Please only enter the index of existed tasks")
+                        
+                except ValueError:
+                    print("\n > Please enter an index(of the task) only")
+
+        elif option == 4:
+
+            if len(toDoList) == 0:
+                print("\n > The To Do List is currently. There is nothing to display")
+            else:
+                print("\nTO DO LIST")
+                print("==========")
+                for i, x in enumerate(toDoList):
+                    print(f"{i+1}. {x.get('task')} : {x.get('status')}")
+
+        elif option == 0:
+            break
+
+    else:
+        print("\n > Please enter a valid option(0/1/2/3/4)")
